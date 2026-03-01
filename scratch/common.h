@@ -235,8 +235,8 @@ void CalculateRoute(Ptr<Node> host) {
         txDelay[next] = txDelay[now] +
                         packet_payload_size * 1000000000lu * 8 / it->second.bw;
         bw[next] = std::min(bw[now], it->second.bw);
-        if (next->GetNodeType() == 1)
-          q.push_back(next);
+        //if (next->GetNodeType() == 1)
+        q.push_back(next);
       }
       if (d + 1 == dis[next]) {
         nextHop[next][host].push_back(now);
@@ -898,9 +898,16 @@ bool SetupNetwork(void (*qp_finish)(FILE *, Ptr<RdmaQueuePair>)) {
   }
 
   // schedule buffer monitor
-  FILE *qlen_output = fopen(qlen_mon_file.c_str(), "w");
-  Simulator::Schedule(NanoSeconds(qlen_mon_start), &monitor_buffer, qlen_output,
-                      &n);
+//   FILE *qlen_output = fopen(qlen_mon_file.c_str(), "w");
+//   Simulator::Schedule(NanoSeconds(qlen_mon_start), &monitor_buffer, qlen_output,
+//                       &n);
+                      
+  if (switch_num > 0) {
+    FILE *qlen_output = fopen(qlen_mon_file.c_str(), "w");
+    Simulator::Schedule(NanoSeconds(qlen_mon_start), &monitor_buffer,
+                        qlen_output, &n);
+  }
+
 
   return true;
 }
