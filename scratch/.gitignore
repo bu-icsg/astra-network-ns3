@@ -6,3 +6,7 @@
 !subdir/
 !scratch-simulator.cc
 !CMakeLists.txt
+
+# Allow committing scratch configs
+!config/
+!config/*.txt
