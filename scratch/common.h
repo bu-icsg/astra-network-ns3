@@ -248,18 +248,18 @@ void CalculateRoute(Ptr<Node> host) {
   if (dis.size() == 20 && host->GetId() < 20) {
     for (uint32_t i=0; i<20; i++) {
       if (i == host->GetId()) continue;
-      uint32_t src_x = i % 5;
-      uint32_t src_y = i / 5;
-      uint32_t dst_x = host->GetId() % 5;
-      uint32_t dst_y = host->GetId() / 5;
+      uint32_t src_x = i % 4;
+      uint32_t src_y = i / 4;
+      uint32_t dst_x = host->GetId() % 4;
+      uint32_t dst_y = host->GetId() / 4;
       
       uint32_t next_node_id;
       if (src_x != dst_x) {
           if (src_x < dst_x) next_node_id = i + 1;
           else next_node_id = i - 1;
       } else {
-          if (src_y < dst_y) next_node_id = i + 5;
-          else next_node_id = i - 5;
+          if (src_y < dst_y) next_node_id = i + 4;
+          else next_node_id = i - 4;
       }
       nextHop[n.Get(i)][host].clear();
       nextHop[n.Get(i)][host].push_back(n.Get(next_node_id));
